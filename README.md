@@ -87,6 +87,43 @@ python launch_coreweave_experiments.py --generate-only
 kubectl apply -f k8s_jobs/
 ```
 
+## Monitoring / TensorBoard
+
+We log training and evaluation metrics to TensorBoard so you can inspect training progress, compare runs, and export figures. Logs are written using the PyTorch TensorBoard writer and stored under the project folder:
+
+- `models/DQN_tensorboard/<run_name>/`
+
+When you create the agent you can pick a run name (for example `tb_run_name="experiment_001"`) and that will create a subfolder inside `models/DQN_tensorboard`. If no run name is provided the code will create a timestamped folder for you.
+
+Common SB3-style scalars that are logged by default:
+
+- `rollout/ep_len_mean` — mean episode length
+- `rollout/ep_rew_mean` — mean episode reward
+- `rollout/exploration_rate` — epsilon / exploration rate
+- `time/fps` — frames-per-second (training speed)
+- `train/learning_rate` — current optimizer learning rate
+- `train/loss` — training loss
+
+Note: When starting TensorBoard you may see:
+
+```
+TensorFlow installation not found - running with reduced feature set.
+```
+
+This is normal — TensorBoard can run without TensorFlow, but installing TensorFlow will enable a few extra visualization features. To install TensorFlow (optional):
+
+```bash
+pip install tensorflow
+```
+
+Start TensorBoard from the repository root and point it at `models/DQN_tensorboard`:
+
+```bash
+tensorboard --logdir=models/DQN_tensorboard
+```
+
+Open http://localhost:6006/ in your browser and choose the run folder you want to inspect.
+
 ## Important Notes
 
 - Make sure to use Python 3.12 specifically, as the code has been tested and verified with this version
