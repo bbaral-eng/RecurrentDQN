@@ -21,7 +21,7 @@ The code is structured to be run in a Jupyter notebook environment with specific
 1. Clone the repository:
    ```bash
    git clone https://github.com/bbaral-eng/Recurrent_Rainbow_DQN.git
-   cd Recurrent_Rainbow_DQN
+   cd RecurrentDQN
    ```
 
 2. Create a virtual environment:
